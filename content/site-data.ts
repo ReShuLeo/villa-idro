@@ -59,6 +59,7 @@ const e = (name: string) => p(`/photos/enhanced/${name}.jpg`);
 
 /** аэрофото с ВЖЖЁННЫМ указателем «вилла → 50 m → пляж» (для hero и секции локации) */
 export const heroAnnotated = e("villa-hero-annotated");
+export const heroAnnotatedWide = e("villa-hero-annotated-wide"); // 16:9 расширенное фото для десктопа (full-bleed)
 
 export const gallery = {
   hero: e("villa-panorama-hero"),

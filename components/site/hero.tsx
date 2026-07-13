@@ -5,7 +5,7 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
-import { contact, heroAnnotated, type Lang, t } from "@/content/site-data";
+import { contact, heroAnnotated, heroAnnotatedWide, type Lang, t } from "@/content/site-data";
 import { CtaButton, WaIcon } from "./ui";
 import { Magnetic } from "./effects";
 import { openQuiz, quizLabel } from "./quiz";
@@ -41,20 +41,20 @@ export function Hero({ lang }: { lang: Lang }) {
 
   return (
     <section ref={root} className="relative min-h-[100svh] flex items-start overflow-hidden bg-[#0b1c20]">
-      {/* десктоп: размытая заливка тем же фото ВМЕСТО пустых полос по бокам от contain-карты */}
+      {/* МОБИЛЬНЫЙ: фото 3:2 (не трогаем — работает как надо), cover, левая часть */}
       <div
-        aria-hidden
-        className="hidden md:block absolute inset-0 bg-cover bg-center scale-110 blur-2xl opacity-55"
+        className="hero-bg md:hidden absolute inset-0 will-change-transform bg-no-repeat bg-cover
+                   [background-position:33%_50%]"
         style={{ backgroundImage: `url(${heroAnnotated})` }}
+        role="img"
+        aria-label="Villa Idro on Lake Idro — the villa circled, 50 metres to the beach"
       />
-      {/* аэрофото с ВЖЖЁННЫМ указателем «вилла → 50 m → пляж».
-          Мобильный: cover (левая часть, вилла+пляж). Десктоп: contain — вся карта целиком,
-          НИЧЕГО не обрезается (пляж, вода, маркер видны полностью), по бокам — размытый фон. */}
+      {/* ДЕСКТОП: широкое 16:9 фото (дорисовано в GPT Image), full-bleed cover — на всю ширину,
+          без полос, вся карта в кадре (маркер, пляж, озеро) */}
       <div
-        className="hero-bg absolute inset-0 will-change-transform bg-no-repeat
-                   bg-cover md:bg-contain
-                   [background-position:33%_50%] md:[background-position:center]"
-        style={{ backgroundImage: `url(${heroAnnotated})` }}
+        className="hero-bg hidden md:block absolute inset-0 will-change-transform bg-no-repeat bg-cover
+                   [background-position:center]"
+        style={{ backgroundImage: `url(${heroAnnotatedWide})` }}
         role="img"
         aria-label="Villa Idro on Lake Idro — the villa circled, 50 metres to the beach"
       />
