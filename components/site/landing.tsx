@@ -7,6 +7,7 @@ import { Cursor, Grain } from "./atmosphere";
 import { ZoomGallery } from "./zoom-gallery";
 import { QuizProvider } from "./quiz";
 import { Reviews } from "./reviews";
+import { Location } from "./location";
 import {
   Faq,
   FinalCta,
@@ -34,6 +35,7 @@ export function Landing({ lang }: { lang: Lang }) {
         <Marquee items={marquee} />
         <Villa lang={lang} />
         <ZoomGallery lang={lang} />
+        <Location lang={lang} />
         <Lake lang={lang} />
         <Hosts lang={lang} />
         <Reviews lang={lang} />

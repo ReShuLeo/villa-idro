@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "motion/react";
 import { contact, stays, type Lang, type Stay, t } from "@/content/site-data";
@@ -31,7 +31,25 @@ function StayCard({
   const title = stayTitle(lang, stay);
   const fromPrice = isApt ? d.stays.aptFrom : d.stays.homeFrom;
   const features = isApt ? d.stays.aptFeatures : d.stays.homeFeatures;
-  const dots = Math.min(stay.photos.length, 8);
+  const len = stay.photos.length;
+  const dots = Math.min(len, 10);
+  const touchX = useRef<number | null>(null);
+  const swiped = useRef(false);
+
+  const go = (dir: number) => setPhoto((p) => (p + dir + len) % len);
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchX.current = e.touches[0].clientX;
+    swiped.current = false;
+  };
+  const onTouchEnd = (e: React.TouchEvent) => {
+    if (touchX.current == null) return;
+    const dx = e.changedTouches[0].clientX - touchX.current;
+    if (Math.abs(dx) > 40) {
+      swiped.current = true;
+      go(dx < 0 ? 1 : -1);
+    }
+    touchX.current = null;
+  };
 
   return (
     <motion.article
@@ -42,9 +60,15 @@ function StayCard({
       transition={{ type: "spring", stiffness: 220, damping: 26 }}
       className="stay-card bg-white rounded-2xl overflow-hidden shadow-[0_18px_45px_-22px_rgba(22,52,60,0.35)] border border-[#e7e0d2] flex flex-col"
     >
-      <div className="relative aspect-[4/3] overflow-hidden group">
+      <div
+        className="relative aspect-[4/3] overflow-hidden group select-none touch-pan-y"
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
+      >
         <button
-          onClick={() => onOpen(stay, photo)}
+          onClick={() => {
+            if (!swiped.current) onOpen(stay, photo);
+          }}
           className="absolute inset-0 z-10 cursor-zoom-in"
           aria-label={`Open ${title} gallery`}
         />
@@ -55,6 +79,23 @@ function StayCard({
           sizes="(max-width: 768px) 100vw, 33vw"
           className="object-cover transition-transform duration-500 group-hover:scale-[1.05]"
         />
+
+        {/* стрелки — десктоп (на мобильном работает свайп) */}
+        <button
+          aria-label="Previous photo"
+          onClick={(e) => { e.stopPropagation(); go(-1); }}
+          className="hidden md:flex absolute left-2 top-1/2 -translate-y-1/2 z-20 w-9 h-9 items-center justify-center rounded-full bg-white/80 text-[#16343c] opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white"
+        >
+          ‹
+        </button>
+        <button
+          aria-label="Next photo"
+          onClick={(e) => { e.stopPropagation(); go(1); }}
+          className="hidden md:flex absolute right-2 top-1/2 -translate-y-1/2 z-20 w-9 h-9 items-center justify-center rounded-full bg-white/80 text-[#16343c] opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white"
+        >
+          ›
+        </button>
+
         <div className="absolute bottom-2.5 left-1/2 -translate-x-1/2 z-20 flex gap-1.5">
           {stay.photos.slice(0, dots).map((_, i) => (
             <button
@@ -64,15 +105,18 @@ function StayCard({
                 ev.stopPropagation();
                 setPhoto(i);
               }}
-              className={`w-2 h-2 rounded-full transition-colors ${i === photo ? "bg-white" : "bg-white/45"}`}
+              className={`h-2 rounded-full transition-all ${i === photo ? "w-5 bg-white" : "w-2 bg-white/45"}`}
             />
           ))}
         </div>
         <span className="absolute top-3 left-3 z-20 bg-[#16343c]/85 backdrop-blur text-[#f7f4ee] text-xs font-medium rounded-full px-3 py-1.5">
           {stay.sleeps} {d.stays.sleeps} · {stay.size} {d.stays.size}
         </span>
-        <span className="absolute top-3 right-3 z-20 bg-white/85 text-[#16343c] text-xs font-medium rounded-full px-3 py-1.5">
-          {stay.photos.length} 📷
+        <span className="absolute top-3 right-3 z-20 bg-white/85 text-[#16343c] text-xs font-medium rounded-full px-3 py-1.5 flex items-center gap-1 md:hidden">
+          👆 {len}
+        </span>
+        <span className="absolute top-3 right-3 z-20 bg-white/85 text-[#16343c] text-xs font-medium rounded-full px-3 py-1.5 hidden md:block">
+          {len} 📷
         </span>
       </div>
 
