@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { contact, langs, type Lang, t } from "@/content/site-data";
+import { BASE, contact, langs, type Lang, t } from "@/content/site-data";
 import { WaIcon } from "./ui";
 
-const langHref = (l: Lang) => (l === "en" ? "/" : `/${l}/`);
+const langHref = (l: Lang) => (l === "en" ? `${BASE}/` : `${BASE}/${l}/`);
 
 export function Header({ lang }: { lang: Lang }) {
   const d = t[lang];
