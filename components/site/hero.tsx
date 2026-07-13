@@ -1,40 +1,27 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import dynamic from "next/dynamic";
+import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
-import { BASE, contact, gallery, type Lang, t } from "@/content/site-data";
+import { contact, gallery, type Lang, t } from "@/content/site-data";
 import { CtaButton, WaIcon } from "./ui";
 import { Magnetic } from "./effects";
 import { openQuiz, quizLabel } from "./quiz";
 
-const WebGLHero = dynamic(() => import("./webgl-hero"), { ssr: false });
-
 gsap.registerPlugin(useGSAP, ScrollTrigger, SplitText);
+
+const beachLabel: Record<Lang, string> = {
+  en: "50 m to the beach",
+  it: "50 m dalla spiaggia",
+  de: "50 m zum Strand",
+  ru: "50 м до пляжа",
+};
 
 export function Hero({ lang }: { lang: Lang }) {
   const d = t[lang];
   const root = useRef<HTMLDivElement>(null);
-  const [desktopMotion, setDesktopMotion] = useState(false);
-  const [webglCapable, setWebglCapable] = useState(false);
-  const [videoFailed, setVideoFailed] = useState(false);
-
-  useEffect(() => {
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const coarse = window.matchMedia("(pointer: coarse)").matches;
-    // Тяжёлый фон (видео/WebGL) — только десктоп без reduced-motion (беречь INP/трафик на мобильном)
-    if (!reduced && !coarse) {
-      setDesktopMotion(true);
-      try {
-        setWebglCapable(!!document.createElement("canvas").getContext("webgl"));
-      } catch {
-        setWebglCapable(false);
-      }
-    }
-  }, []);
 
   useGSAP(
     () => {
@@ -42,19 +29,14 @@ export function Hero({ lang }: { lang: Lang }) {
       if (reduced || !root.current) return;
 
       const split = new SplitText(".hero-h1", { type: "lines,words", linesClass: "overflow-hidden" });
-
       const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
       tl.fromTo(".hero-bg", { scale: 1.14 }, { scale: 1, duration: 1.8, ease: "power2.out" })
-        .fromTo(
-          split.words,
-          { yPercent: 118 },
-          { yPercent: 0, duration: 1, stagger: 0.045 },
-          0.25
-        )
+        .fromTo(split.words, { yPercent: 118 }, { yPercent: 0, duration: 1, stagger: 0.045 }, 0.25)
         .fromTo(".hero-sub", { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 0.7 }, 0.8)
         .fromTo(".hero-cta", { autoAlpha: 0, y: 20 }, { autoAlpha: 1, y: 0, duration: 0.6 }, 1)
         .fromTo(".hero-chip", { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: 0.5, stagger: 0.06 }, 1.15)
-        .fromTo(".hero-cue", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.6 }, 1.4);
+        .fromTo(".hero-pin", { autoAlpha: 0, scale: 0.7 }, { autoAlpha: 1, scale: 1, duration: 0.6 }, 1.3)
+        .fromTo(".hero-cue", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.6 }, 1.5);
 
       gsap.to(".hero-bg", {
         yPercent: 16,
@@ -76,24 +58,19 @@ export function Hero({ lang }: { lang: Lang }) {
         role="img"
         aria-label="Villa Idro panorama, Lake Idro"
       />
-      {desktopMotion && !videoFailed && (
-        <video
-          className="absolute inset-0 h-full w-full object-cover"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          poster={gallery.hero}
-          onError={() => setVideoFailed(true)}
-        >
-          <source src={`${BASE}/videos/hero.mp4`} type="video/mp4" />
-        </video>
-      )}
-      {desktopMotion && videoFailed && webglCapable && <WebGLHero image={gallery.hero} />}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#0d2227]/92 via-[#0d2227]/45 to-[#0d2227]/25" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#0d2227]/92 via-[#0d2227]/35 to-[#0d2227]/15" />
 
-      <div className="relative z-10 w-full max-w-6xl mx-auto px-5 md:px-8 pb-16 md:pb-20 pt-36">
+      {/* Указатель «вот наш дом → 50 м до пляжа» в верхней зоне (без наложения на текст) */}
+      <div className="hero-pin absolute right-4 top-24 md:right-10 md:top-28 z-10 flex flex-col items-end gap-1.5 text-right">
+        <span className="flex items-center gap-1.5 rounded-full bg-[#16343c]/90 backdrop-blur px-3 py-1.5 text-xs md:text-sm font-semibold text-[#f7f4ee] shadow-lg">
+          📍 Villa Idro
+        </span>
+        <span className="flex items-center gap-1.5 rounded-full bg-[#1d7f5f] px-3 py-1.5 text-xs md:text-sm font-semibold text-white shadow-lg">
+          🏖️ {beachLabel[lang]} ↓
+        </span>
+      </div>
+
+      <div className="relative z-10 w-full max-w-6xl mx-auto px-5 md:px-8 pb-16 md:pb-20 pt-40">
         <p className="hero-sub text-[13px] md:text-sm tracking-[0.22em] uppercase text-[#e8c9a8] mb-5">
           {d.hero.eyebrow}
         </p>
