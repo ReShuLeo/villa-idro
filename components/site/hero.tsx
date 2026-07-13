@@ -40,18 +40,26 @@ export function Hero({ lang }: { lang: Lang }) {
   );
 
   return (
-    <section ref={root} className="relative min-h-[100svh] flex items-start overflow-hidden">
-      {/* аэрофото с ВЖЖЁННЫМ указателем «вилла → 50 m → пляж» (маркеры всегда точны при любом кропе).
-          Мобильный: показываем левую часть (вилла+пляж). Обведённое здание ниже короткого текста. */}
+    <section ref={root} className="relative min-h-[100svh] flex items-start overflow-hidden bg-[#0b1c20]">
+      {/* десктоп: размытая заливка тем же фото ВМЕСТО пустых полос по бокам от contain-карты */}
       <div
-        className="hero-bg absolute inset-0 will-change-transform bg-cover bg-no-repeat
-                   [background-position:33%_50%] md:[background-position:50%_82%]"
+        aria-hidden
+        className="hidden md:block absolute inset-0 bg-cover bg-center scale-110 blur-2xl opacity-55"
+        style={{ backgroundImage: `url(${heroAnnotated})` }}
+      />
+      {/* аэрофото с ВЖЖЁННЫМ указателем «вилла → 50 m → пляж».
+          Мобильный: cover (левая часть, вилла+пляж). Десктоп: contain — вся карта целиком,
+          НИЧЕГО не обрезается (пляж, вода, маркер видны полностью), по бокам — размытый фон. */}
+      <div
+        className="hero-bg absolute inset-0 will-change-transform bg-no-repeat
+                   bg-cover md:bg-contain
+                   [background-position:33%_50%] md:[background-position:center]"
         style={{ backgroundImage: `url(${heroAnnotated})` }}
         role="img"
         aria-label="Villa Idro on Lake Idro — the villa circled, 50 metres to the beach"
       />
-      {/* верхнее затемнение — навигация + мобильный текст */}
-      <div className="absolute inset-x-0 top-0 h-[34%] md:h-[36%] bg-gradient-to-b from-[#0d2227]/94 via-[#0d2227]/50 to-transparent" />
+      {/* верхнее затемнение — навигация (на десктопе короткое, чтобы НЕ затирать маркер под ним) */}
+      <div className="absolute inset-x-0 top-0 h-[34%] md:h-[20%] bg-gradient-to-b from-[#0d2227]/94 via-[#0d2227]/45 to-transparent" />
       {/* десктоп: затемняем правую половину (текст справа), левая с обводкой дома и путём остаётся светлой */}
       <div className="hidden md:block absolute inset-y-0 right-0 w-[65%] bg-gradient-to-l from-[#0d2227]/90 via-[#0d2227]/45 to-transparent" />
 
