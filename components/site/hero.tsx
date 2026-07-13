@@ -15,6 +15,56 @@ gsap.registerPlugin(useGSAP, ScrollTrigger, SplitText);
 const villaWord: Record<Lang, string> = { en: "Our villa", it: "La villa", de: "Unsere Villa", ru: "Наша вилла" };
 const beachWord: Record<Lang, string> = { en: "beaches", it: "spiagge", de: "Strände", ru: "пляжи" };
 
+function Route({
+  villa,
+  m50,
+  beach,
+  path,
+  lang,
+}: {
+  villa: [string, string];
+  m50: [string, string];
+  beach: [string, string];
+  path: string;
+  lang: Lang;
+}) {
+  return (
+    <>
+      <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden>
+        <path
+          className="route-path"
+          d={path}
+          fill="none"
+          stroke="#ffd9ae"
+          strokeWidth="0.5"
+          strokeLinecap="round"
+          strokeDasharray="2.4 1.8"
+        />
+      </svg>
+      <div className="absolute" style={{ left: villa[0], top: villa[1], transform: "translate(-50%,-50%)" }}>
+        <span className="relative flex h-3.5 w-3.5">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#ffd9ae] opacity-70" />
+          <span className="relative inline-flex h-3.5 w-3.5 rounded-full border-2 border-white bg-[#1d7f5f]" />
+        </span>
+        <span className="absolute left-5 top-1/2 -translate-y-1/2 whitespace-nowrap text-sm font-semibold text-white [text-shadow:0_2px_8px_rgba(0,0,0,0.9)]">
+          {villaWord[lang]}
+        </span>
+      </div>
+      <div className="absolute" style={{ left: m50[0], top: m50[1], transform: "translate(0,-50%)" }}>
+        <span className="whitespace-nowrap text-lg font-bold text-[#ffd9ae] [text-shadow:0_2px_10px_rgba(0,0,0,0.95)]">
+          50&nbsp;m
+        </span>
+      </div>
+      <div className="absolute" style={{ left: beach[0], top: beach[1], transform: "translate(-50%,-50%)" }}>
+        <span className="text-xl [filter:drop-shadow(0_2px_6px_rgba(0,0,0,0.75))]">🏖️</span>
+        <span className="absolute left-7 top-1/2 -translate-y-1/2 whitespace-nowrap text-sm font-semibold text-white [text-shadow:0_2px_8px_rgba(0,0,0,0.9)]">
+          {beachWord[lang]}
+        </span>
+      </div>
+    </>
+  );
+}
+
 export function Hero({ lang }: { lang: Lang }) {
   const d = t[lang];
   const root = useRef<HTMLDivElement>(null);
@@ -45,68 +95,40 @@ export function Hero({ lang }: { lang: Lang }) {
   );
 
   return (
-    <section ref={root} className="relative min-h-[100svh] flex items-center overflow-hidden">
+    <section ref={root} className="relative min-h-[100svh] flex items-start md:items-center overflow-hidden">
       <div
         className="hero-bg absolute inset-0 bg-cover bg-center will-change-transform"
         style={{ backgroundImage: `url(${gallery.hero})` }}
         role="img"
         aria-label="Villa Idro on Lake Idro — the villa and the short path to the beach"
       />
-      {/* затемнение слева (под текст) + чуть снизу; центр-право с виллой и путём остаётся открытым */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#0d2227]/90 via-[#0d2227]/45 to-[#0d2227]/5" />
-      <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#0d2227]/55 to-transparent" />
+      {/* мобильный градиент — темнее сверху (под текст), низ открыт под путь;
+          десктопный — темнее слева, центр-право открыт */}
+      <div className="absolute inset-0 md:hidden bg-gradient-to-b from-[#0d2227]/92 via-[#0d2227]/35 to-[#0d2227]/10" />
+      <div className="absolute inset-0 hidden md:block bg-gradient-to-r from-[#0d2227]/90 via-[#0d2227]/40 to-transparent" />
 
-      {/* Нарисованный НА фото путь: вилла → пляж (главное преимущество) */}
-      <div className="hero-route absolute inset-0 z-[5] pointer-events-none">
-        <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden>
-          <path
-            className="route-path"
-            d="M63,42 Q67,58 65,78"
-            fill="none"
-            stroke="#ffd9ae"
-            strokeWidth="0.5"
-            strokeLinecap="round"
-            strokeDasharray="2.4 1.8"
-          />
-        </svg>
-        {/* маркер виллы */}
-        <div className="absolute" style={{ left: "63%", top: "42%", transform: "translate(-50%,-50%)" }}>
-          <span className="relative flex h-3.5 w-3.5">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#ffd9ae] opacity-70" />
-            <span className="relative inline-flex h-3.5 w-3.5 rounded-full border-2 border-white bg-[#1d7f5f]" />
-          </span>
-          <span className="absolute left-5 top-1/2 -translate-y-1/2 whitespace-nowrap text-sm font-semibold text-white [text-shadow:0_2px_8px_rgba(0,0,0,0.85)]">
-            {villaWord[lang]}
-          </span>
-        </div>
-        {/* подпись 50 м на середине пути */}
-        <div className="absolute" style={{ left: "68%", top: "59%", transform: "translate(0,-50%)" }}>
-          <span className="whitespace-nowrap text-lg font-bold text-[#ffd9ae] [text-shadow:0_2px_10px_rgba(0,0,0,0.9)]">
-            50&nbsp;m
-          </span>
-        </div>
-        {/* маркер пляжа */}
-        <div className="absolute" style={{ left: "65%", top: "78%", transform: "translate(-50%,-50%)" }}>
-          <span className="text-xl [filter:drop-shadow(0_2px_6px_rgba(0,0,0,0.7))]">🏖️</span>
-          <span className="absolute left-7 top-1/2 -translate-y-1/2 whitespace-nowrap text-sm font-semibold text-white [text-shadow:0_2px_8px_rgba(0,0,0,0.85)]">
-            {beachWord[lang]}
-          </span>
-        </div>
+      {/* Путь вилла → пляж, нарисованный НА фото. Разные позиции для мобильного и десктопа. */}
+      <div className="hero-route absolute inset-0 z-[5] pointer-events-none md:hidden">
+        <Route lang={lang} villa={["50%", "57%"]} m50={["54%", "71%"]} beach={["52%", "87%"]} path="M50,57 Q55,71 52,87" />
+      </div>
+      <div className="hero-route absolute inset-0 z-[5] pointer-events-none hidden md:block">
+        <Route lang={lang} villa={["63%", "42%"]} m50={["68%", "59%"]} beach={["65%", "78%"]} path="M63,42 Q67,58 65,78" />
       </div>
 
-      <div className="relative z-10 w-full max-w-6xl mx-auto px-5 md:px-8">
+      <div className="relative z-10 w-full max-w-6xl mx-auto px-5 md:px-8 pt-28 md:pt-0">
         <div className="max-w-lg">
           <p className="hero-sub text-[13px] md:text-sm tracking-[0.22em] uppercase text-[#e8c9a8] mb-4">
             {d.hero.eyebrow}
           </p>
 
-          <h1 className="hero-h1 font-display text-[#f7f4ee] text-[clamp(2.2rem,6vw,4.2rem)] leading-[1.06] tracking-tight">
+          <h1 className="hero-h1 font-display text-[#f7f4ee] text-[clamp(2.1rem,6vw,4.2rem)] leading-[1.06] tracking-tight">
             {d.hero.h1a} <span className="text-[#ffd9ae]">{d.hero.h1b}</span>
           </h1>
 
-          <p className="hero-sub mt-5 text-lg leading-relaxed text-[#dbe5e2]">{d.hero.sub}</p>
+          {/* подзаголовок — только десктоп (на мобильном тот же смысл в блоке доверия ниже) */}
+          <p className="hero-sub mt-5 hidden md:block text-lg leading-relaxed text-[#dbe5e2]">{d.hero.sub}</p>
 
-          <div className="hero-cta mt-8 flex flex-col sm:flex-row sm:items-center gap-3.5">
+          <div className="hero-cta mt-7 flex flex-col sm:flex-row sm:items-center gap-3.5">
             <Magnetic>
               <CtaButton href={contact.wa(d.hero.waMessage)} pulse variant="primary">
                 <WaIcon />
@@ -116,7 +138,7 @@ export function Hero({ lang }: { lang: Lang }) {
             <button
               onClick={openQuiz}
               data-cursor
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-white/30 text-[#f7f4ee] px-7 py-4 min-h-[52px] leading-none font-medium hover:bg-white/10 transition-colors"
+              className="hidden md:inline-flex items-center justify-center gap-2 rounded-full border border-white/30 text-[#f7f4ee] px-7 py-4 min-h-[52px] leading-none font-medium hover:bg-white/10 transition-colors"
             >
               ✨ {quizLabel(lang)}
             </button>
