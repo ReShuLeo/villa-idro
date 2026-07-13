@@ -41,30 +41,30 @@ export function Hero({ lang }: { lang: Lang }) {
 
   return (
     <section ref={root} className="relative min-h-[100svh] flex items-start overflow-hidden">
-      {/* аэрофото с ВЖЖЁННЫМ указателем «вилла → 50 m → пляж».
-          Мобильный: зум + прижатие к верху, чтобы обведённое здание было НИЖЕ текста и полностью видно. */}
+      {/* аэрофото с ВЖЖЁННЫМ указателем «вилла → 50 m → пляж» (маркеры всегда точны при любом кропе).
+          Мобильный: показываем левую часть (вилла+пляж). Обведённое здание ниже короткого текста. */}
       <div
-        className="hero-bg absolute inset-0 will-change-transform bg-no-repeat
-                   [background-size:auto_132%] [background-position:36%_0%]
-                   md:bg-cover md:[background-position:50%_30%]"
+        className="hero-bg absolute inset-0 will-change-transform bg-cover bg-no-repeat
+                   [background-position:33%_50%] md:[background-position:52%_28%]"
         style={{ backgroundImage: `url(${heroAnnotated})` }}
         role="img"
         aria-label="Villa Idro on Lake Idro — the villa circled, 50 metres to the beach"
       />
-      {/* затемнение только под текстом сверху; вилла/путь/пляж ниже — открыты */}
-      <div className="absolute inset-x-0 top-0 h-[44%] bg-gradient-to-b from-[#0d2227]/92 via-[#0d2227]/55 to-transparent" />
+      {/* затемнение под текстом сверху; здание/путь/пляж ниже — открыты */}
+      <div className="absolute inset-x-0 top-0 h-[34%] md:h-[52%] bg-gradient-to-b from-[#0d2227]/94 via-[#0d2227]/55 to-transparent" />
 
-      <div className="relative z-10 w-full max-w-6xl mx-auto px-5 md:px-8 pt-24 md:pt-28">
+      <div className="relative z-10 w-full max-w-6xl mx-auto px-5 md:px-8 pt-20 md:pt-24">
         <div className="max-w-xl">
-          <p className="hero-sub text-[13px] md:text-sm tracking-[0.22em] uppercase text-[#e8c9a8] mb-4">
+          <p className="hero-sub text-[13px] md:text-sm tracking-[0.22em] uppercase text-[#e8c9a8] mb-3.5">
             {d.hero.eyebrow}
           </p>
 
-          <h1 className="hero-h1 font-display text-[#f7f4ee] text-[clamp(2.1rem,5.6vw,4rem)] leading-[1.05] tracking-tight">
+          <h1 className="hero-h1 font-display text-[#f7f4ee] text-[clamp(2rem,5.4vw,4rem)] leading-[1.04] tracking-tight">
             {d.hero.h1a} <span className="text-[#ffd9ae]">{d.hero.h1b}</span>
           </h1>
 
-          <div className="hero-cta mt-7 flex flex-col sm:flex-row sm:items-center gap-3.5">
+          {/* кнопки — только десктоп (на мобильном они бы перекрыли здание; CTA есть в нижней панели) */}
+          <div className="hero-cta mt-7 hidden md:flex flex-col sm:flex-row sm:items-center gap-3.5">
             <Magnetic>
               <CtaButton href={contact.wa(d.hero.waMessage)} pulse variant="primary">
                 <WaIcon />
@@ -79,7 +79,7 @@ export function Hero({ lang }: { lang: Lang }) {
               ✨ {quizLabel(lang)}
             </button>
           </div>
-          <p className="hero-cta mt-3 text-sm text-[#cdd9d5]">{d.hero.ctaDoubt}</p>
+          <p className="hero-cta mt-3 hidden md:block text-sm text-[#cdd9d5]">{d.hero.ctaDoubt}</p>
         </div>
       </div>
     </section>
