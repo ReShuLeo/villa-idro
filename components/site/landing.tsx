@@ -6,6 +6,7 @@ import { Marquee, ScrollProgress } from "./effects";
 import { Cursor, Grain } from "./atmosphere";
 import { ZoomGallery } from "./zoom-gallery";
 import { QuizProvider } from "./quiz";
+import { Reviews } from "./reviews";
 import {
   Faq,
   FinalCta,
@@ -35,6 +36,7 @@ export function Landing({ lang }: { lang: Lang }) {
         <ZoomGallery lang={lang} />
         <Lake lang={lang} />
         <Hosts lang={lang} />
+        <Reviews lang={lang} />
         <HowItWorks lang={lang} />
         <Faq lang={lang} />
         <FinalCta lang={lang} />
