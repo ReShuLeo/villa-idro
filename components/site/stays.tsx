@@ -130,12 +130,12 @@ function StayCard({
               {f}
             </li>
           ))}
-          {stay.balcony && (
-            <li className="flex gap-2">
-              <span className="text-[#1d7f5f] mt-0.5">✓</span>
-              {d.stays.balcony.charAt(0).toUpperCase() + d.stays.balcony.slice(1)}
-            </li>
-          )}
+          {/* Балкон ВСЕГДА занимает строку (правило владельца: нет балкона → пустая строка той же
+              высоты, чтобы CIR и кнопка WhatsApp во ВСЕХ карточках были на одной высоте). */}
+          <li className={`flex gap-2${stay.balcony ? "" : " invisible"}`} aria-hidden={!stay.balcony}>
+            <span className="text-[#1d7f5f] mt-0.5">✓</span>
+            {stay.balcony ? d.stays.balcony.charAt(0).toUpperCase() + d.stays.balcony.slice(1) : d.stays.balcony}
+          </li>
         </ul>
 
         <p className="mt-2 text-[11px] text-[#a5aea6] tracking-wide">CIR: {stay.cir}</p>

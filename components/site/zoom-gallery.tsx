@@ -150,9 +150,9 @@ function MobileGallery({ images, sub, onOpen }: { images: Img[]; sub: string; on
 
 export function ZoomGallery({ lang }: { lang: Lang }) {
   const h = heading[lang];
+  // ровно 6 кадров — чистая сетка без пустых мест (2 колонки × 3 ряда / 3 колонки × 2 ряда)
   const images: Img[] = [
     { src: gallery.hero, alt: "Villa Idro panorama" },
-    { src: gallery.pool[1], alt: "Pool with mountain views" },
     { src: gallery.beaches[0], alt: "Wild beach of Lake Idro" },
     { src: gallery.pool[0], alt: "Villa pool" },
     { src: gallery.beaches[1], alt: "Public beach" },
@@ -181,19 +181,20 @@ export function ZoomGallery({ lang }: { lang: Lang }) {
           <MobileGallery images={images} sub={h.subMobile} onOpen={(i) => setLb(i)} />
         </div>
 
-        {/* ДЕСКТОП: editorial-мозаика; клик по фото — полноэкранный просмотр. Скролл не блокируется. */}
-        <div className="mt-10 hidden gap-4 md:block md:columns-2 lg:columns-3 [column-fill:balance]">
+        {/* ДЕСКТОП: РОВНАЯ сетка одинаковых плиток (aspect 4:3, object-cover) — без пустых мест справа.
+            Клик по фото — полноэкранный просмотр. Скролл не блокируется. */}
+        <div className="mt-10 hidden gap-4 md:grid md:grid-cols-2 lg:grid-cols-3">
           {images.map((im, i) => (
             <button
               key={i}
               onClick={() => setLb(i)}
-              className="group mb-4 block w-full break-inside-avoid cursor-zoom-in overflow-hidden rounded-xl shadow-[0_16px_40px_-24px_rgba(0,0,0,0.7)]"
+              className="group relative block aspect-[4/3] w-full cursor-zoom-in overflow-hidden rounded-xl shadow-[0_16px_40px_-24px_rgba(0,0,0,0.7)]"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={im.src}
                 alt={im.alt || `Villa Idro ${i + 1}`}
-                className="w-full transition-transform duration-500 ease-out group-hover:scale-[1.04]"
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
                 loading="lazy"
               />
             </button>
