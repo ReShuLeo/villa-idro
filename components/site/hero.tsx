@@ -41,15 +41,18 @@ export function Hero({ lang }: { lang: Lang }) {
 
   return (
     <section ref={root} className="relative min-h-[100svh] flex items-start overflow-hidden">
-      {/* аэрофото с ВЖЖЁННЫМ указателем «вилла → 50 m → пляж» (маркеры всегда точны при любом кропе) */}
+      {/* аэрофото с ВЖЖЁННЫМ указателем «вилла → 50 m → пляж».
+          Мобильный: зум + прижатие к верху, чтобы обведённое здание было НИЖЕ текста и полностью видно. */}
       <div
-        className="hero-bg absolute inset-0 bg-cover will-change-transform [background-position:36%_45%] md:[background-position:50%_38%]"
+        className="hero-bg absolute inset-0 will-change-transform bg-no-repeat
+                   [background-size:auto_132%] [background-position:36%_0%]
+                   md:bg-cover md:[background-position:50%_30%]"
         style={{ backgroundImage: `url(${heroAnnotated})` }}
         role="img"
-        aria-label="Villa Idro on Lake Idro — the villa marked, 50 metres to the beach"
+        aria-label="Villa Idro on Lake Idro — the villa circled, 50 metres to the beach"
       />
-      {/* затемнение только сверху (под текст); низ с виллой, путём и пляжем открыт */}
-      <div className="absolute inset-x-0 top-0 h-[62%] bg-gradient-to-b from-[#0d2227]/92 via-[#0d2227]/45 to-transparent" />
+      {/* затемнение только под текстом сверху; вилла/путь/пляж ниже — открыты */}
+      <div className="absolute inset-x-0 top-0 h-[44%] bg-gradient-to-b from-[#0d2227]/92 via-[#0d2227]/55 to-transparent" />
 
       <div className="relative z-10 w-full max-w-6xl mx-auto px-5 md:px-8 pt-24 md:pt-28">
         <div className="max-w-xl">
