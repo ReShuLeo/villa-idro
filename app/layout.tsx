@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import { SmoothScroll } from "@/components/providers/smooth-scroll";
+import { Gate } from "@/components/site/gate";
 import "./globals.css";
 
 const display = Playfair_Display({
@@ -18,6 +19,7 @@ export const metadata: Metadata = {
   description:
     "Family-run villa 50 m from the beaches of Lake Idro. 8 apartments and 4 holiday homes with pool, BBQ and mountain views. Book directly with the owners — no fees.",
   metadataBase: new URL("https://villaidro.com"),
+  robots: { index: false, follow: false, nocache: true, googleBot: { index: false, follow: false } },
   openGraph: {
     title: "Villa Idro — your Italian lake summer",
     description:
@@ -37,7 +39,9 @@ export default function RootLayout({
       className={`${display.variable} ${sans.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-[#f7f4ee] text-[#1c2a2e]">
-        <SmoothScroll>{children}</SmoothScroll>
+        <Gate>
+          <SmoothScroll>{children}</SmoothScroll>
+        </Gate>
       </body>
     </html>
   );
