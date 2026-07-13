@@ -5,6 +5,7 @@ import { Stays } from "./stays";
 import { Marquee, ScrollProgress } from "./effects";
 import { Cursor, Grain } from "./atmosphere";
 import { ZoomGallery } from "./zoom-gallery";
+import { QuizProvider } from "./quiz";
 import {
   Faq,
   FinalCta,
@@ -40,6 +41,7 @@ export function Landing({ lang }: { lang: Lang }) {
       </main>
       <Footer lang={lang} />
       <StickyBar lang={lang} />
+      <QuizProvider lang={lang} />
     </div>
   );
 }

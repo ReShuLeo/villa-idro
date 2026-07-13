@@ -9,6 +9,7 @@ import { SplitText } from "gsap/SplitText";
 import { BASE, contact, gallery, type Lang, t } from "@/content/site-data";
 import { CtaButton, WaIcon } from "./ui";
 import { Magnetic } from "./effects";
+import { openQuiz, quizLabel } from "./quiz";
 
 const WebGLHero = dynamic(() => import("./webgl-hero"), { ssr: false });
 
@@ -110,12 +111,13 @@ export function Hero({ lang }: { lang: Lang }) {
               {d.hero.ctaMain}
             </CtaButton>
           </Magnetic>
-          <a
-            href="#stays"
-            className="inline-flex items-center justify-center rounded-full border border-white/30 text-[#f7f4ee] px-7 py-4 min-h-[52px] leading-none font-medium hover:bg-white/10 transition-colors"
+          <button
+            onClick={openQuiz}
+            data-cursor
+            className="inline-flex items-center justify-center gap-2 rounded-full border border-white/30 text-[#f7f4ee] px-7 py-4 min-h-[52px] leading-none font-medium hover:bg-white/10 transition-colors"
           >
-            {d.hero.ctaSecondary}
-          </a>
+            ✨ {quizLabel(lang)}
+          </button>
         </div>
         <p className="hero-cta mt-3 text-sm text-[#b9cbc6]">{d.hero.ctaDoubt}</p>
 

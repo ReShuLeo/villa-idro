@@ -5,10 +5,15 @@ import type { Lang } from "@/content/site-data";
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return [{ lang: "de" }, { lang: "ru" }];
+  return [{ lang: "it" }, { lang: "de" }, { lang: "ru" }];
 }
 
 const meta: Record<string, { title: string; description: string }> = {
+  it: {
+    title: "Villa Idro — Appartamenti e Case Vacanza sul Lago d'Idro, Italia",
+    description:
+      "Villa privata di famiglia a 50 m dalle spiagge del Lago d'Idro: 8 appartamenti e 4 case con piscina. Prenota diretto dai proprietari — senza commissioni.",
+  },
   de: {
     title: "Villa Idro — Ferienwohnungen & Ferienhäuser direkt am Idrosee, Italien",
     description:

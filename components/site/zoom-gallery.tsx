@@ -5,6 +5,7 @@ import { ZoomParallax } from "@/components/ui/zoom-parallax";
 
 const heading: Record<Lang, { title: string; sub: string }> = {
   en: { title: "Feel the place before you arrive", sub: "Scroll — the villa unfolds around you" },
+  it: { title: "Senti il luogo prima di arrivare", sub: "Scorri — la villa si apre intorno a te" },
   de: { title: "Spüren Sie den Ort, bevor Sie ankommen", sub: "Scrollen — die Villa entfaltet sich um Sie" },
   ru: { title: "Почувствуйте место ещё до приезда", sub: "Листайте — вилла раскрывается вокруг вас" },
 };

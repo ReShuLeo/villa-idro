@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { contact, stays, type Lang, type Stay, t } from "@/content/site-data";
 import { SectionHead, WaIcon } from "./ui";
 import { Reveal } from "./reveal";
+import { openQuiz, quizBadge, quizLabel } from "./quiz";
 
 function stayTitle(lang: Lang, stay: Stay) {
   const isApt = stay.kind === "apartment";
@@ -220,7 +221,22 @@ export function Stays({ lang }: { lang: Lang }) {
           <SectionHead title={d.stays.title} sub={d.stays.sub} />
         </Reveal>
 
-        <div className="mt-8 inline-flex rounded-full bg-[#e9e2d2] p-1.5">
+        <button
+          onClick={openQuiz}
+          data-cursor
+          className="mt-6 group inline-flex items-center gap-3 rounded-2xl border border-[#1d7f5f]/25 bg-white px-5 py-4 text-left shadow-[0_10px_30px_-18px_rgba(29,127,95,0.5)] hover:border-[#1d7f5f] transition-colors"
+        >
+          <span className="text-2xl">✨</span>
+          <span>
+            <span className="block font-semibold text-[#16343c] group-hover:text-[#1d7f5f] transition-colors">
+              {quizLabel(lang)}
+            </span>
+            <span className="block text-sm text-[#6b7d7a]">{quizBadge(lang)}</span>
+          </span>
+          <span className="ml-2 text-[#1d7f5f] text-xl">→</span>
+        </button>
+
+        <div className="mt-8 inline-flex rounded-full bg-[#e9e2d2] p-1.5 lg:ml-3">
           {(["apartment", "home"] as const).map((k) => (
             <button
               key={k}

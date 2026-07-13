@@ -1,5 +1,5 @@
-export type Lang = "en" | "de" | "ru";
-export const langs: Lang[] = ["en", "de", "ru"];
+export type Lang = "en" | "de" | "ru" | "it";
+export const langs: Lang[] = ["en", "it", "de", "ru"];
 
 /** базовый путь для GitHub Pages preview; при кастомном домене пуст */
 export const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
@@ -404,6 +404,107 @@ export const t: Record<Lang, Dict> = {
       cirTitle: "Итальянские туристические регистрации (CIR)",
       rights: "Villa Idro — частная семейная вилла. Все фотографии настоящие и сделаны на вилле.",
       direct: "Прямая бронь: WhatsApp · Telegram",
+    },
+  },
+
+  it: {
+    langName: "Italiano",
+    nav: { stays: "Appartamenti & case", villa: "La villa", lake: "Lago & dintorni", faq: "FAQ", contact: "Contatti" },
+    hero: {
+      eyebrow: "Lago d'Idro · Vesta · Nord Italia",
+      h1a: "La tua estate italiana sul lago,",
+      h1b: "a 50 metri dall'acqua",
+      sub: "Villa privata di famiglia con piscina: 8 appartamenti e 4 case vacanza per 4–8 ospiti. Prenoti direttamente con i proprietari — nessuna commissione, prezzi onesti, cura personale.",
+      ctaMain: "Verifica le date su WhatsApp",
+      ctaDoubt: "Valery e Vita rispondono di persona — di solito entro poche ore",
+      ctaSecondary: "Vedi appartamenti e case",
+      chips: ["50 m dalle spiagge", "Piscina privata", "12 alloggi · 4–8 ospiti", "Registrati (CIR)", "Diretto dai proprietari"],
+      waMessage: "Buongiorno Valery e Vita! Vorrei verificare le date disponibili a Villa Idro.",
+    },
+    trust: {
+      title: "Perché le famiglie tornano a Vesta",
+      items: [
+        { n: "50 m", label: "da due spiagge del Lago d'Idro" },
+        { n: "12", label: "alloggi: 8 appartamenti + 4 case" },
+        { n: "0 %", label: "commissioni — paghi i proprietari, non una piattaforma" },
+        { n: "100 %", label: "in regola: ogni alloggio ha una registrazione CIR" },
+      ],
+    },
+    stays: {
+      title: "Scegli il tuo alloggio",
+      sub: "Ogni appartamento e casa ha cucina, bagno e accesso a piscina, barbecue e giardino. Foto reali — è esattamente ciò che avrai.",
+      tabApartments: "Appartamenti · 4–5 ospiti",
+      tabHomes: "Case vacanza · fino a 8 ospiti",
+      sleeps: "ospiti", size: "m²", balcony: "balcone", from: "da", night: "/ notte",
+      aptFrom: 69, homeFrom: 129,
+      features: "Cosa c'è dentro",
+      aptFeatures: ["1 camera + divano letto", "Cucina: piano gas, frigo, microonde, macchina caffè", "Bagno privato", "Stoviglie, bollitore, kit di benvenuto inclusi"],
+      homeFeatures: ["3 camere su 2 piani", "Cucina completa e soggiorno", "Terrazza e balcone", "Ideale per 2 famiglie insieme"],
+      cta: "Chiedi di questo alloggio",
+      sharedNote: "Stessa disposizione delle foto — ogni appartamento di questa linea è arredato allo stesso modo.",
+      priceNote: "Il prezzo finale dipende dalle date e dal numero di ospiti. Tassa di soggiorno €1/persona/notte (apr–ott, dai 15 anni). Chiedi un preventivo esatto — basta un messaggio.",
+      waStay: (name: string) => `Buongiorno! Sono interessato a ${name} a Villa Idro. Potreste dirmi disponibilità e prezzo per le mie date?`,
+    },
+    villa: {
+      title: "Una villa — tutto ciò che serve alla tua famiglia",
+      sub: "Non affitti solo una stanza. Hai tutta la proprietà.",
+      items: [
+        { title: "Piscina con vista sui monti", text: "Aperta da maggio a settembre, lettini inclusi. Lato bimbi poco profondo.", img: "" },
+        { title: "Barbecue e gazebo", text: "Cena alla griglia mentre il sole tramonta sul lago. Griglia a carbone, tavolo grande, luci.", img: "" },
+        { title: "Parco giochi per bambini", text: "Altalene e scivoli nella proprietà — i bimbi giocano, tu riposi davvero.", img: "" },
+        { title: "Parcheggio privato gratuito", text: "Parcheggio recintato interno. L'auto è a 30 secondi dalla porta.", img: "" },
+        { title: "Deposito per la tua attrezzatura", text: "Barche, SUP, bici, materassini — un locale dedicato.", img: "" },
+        { title: "Ping-pong e lavatrice", text: "Ping-pong per le sere, lavatrice per i soggiorni lunghi.", img: "" },
+      ],
+    },
+    lake: {
+      title: "Lago d'Idro: il tranquillo lago italiano",
+      sub: "Senza la folla del Garda, con tutta la bellezza delle Alpi. In estate l'acqua arriva a 24 °C.",
+      blocks: [
+        { title: "Due spiagge, a 50 metri", text: "Una spiaggia selvaggia di ciottoli e una attrezzata con bar e beach volley — entrambe a un minuto a piedi dal cancello.", imgs: [] },
+        { title: "Un parco naturale dietro casa", text: "Sentieri alpini, un ruscello di acqua minerale, gallerie della Grande Guerra e cervi all'alba — direttamente dalla villa, senza auto.", imgs: [] },
+        { title: "Sport sull'acqua e sulla roccia", text: "Windsurf, kite, immersioni, arrampicata, ciclismo su strada — il Lago d'Idro è una leggenda silenziosa tra i viaggiatori attivi.", imgs: [] },
+        { title: "Gite in giornata da album", text: "Venezia, Milano, Verona, Gardaland e l'outlet — tutto raggiungibile in giornata in auto.", imgs: [] },
+      ],
+    },
+    hosts: {
+      title: "Scrivi direttamente a noi",
+      text1: "Siamo Valery e Vita — la famiglia proprietaria di Villa Idro. Niente manager, niente call center: chi risponde al tuo messaggio è chi ti consegnerà le chiavi.",
+      text2: "Viviamo qui e sappiamo dove l'acqua è più calda a giugno e quale sentiero va bene con il passeggino. Chiedici tutto — prima e durante il soggiorno.",
+      sign: "Valery e Vita, i tuoi ospiti sul Lago d'Idro",
+    },
+    how: {
+      title: "Prenotare sono tre messaggi",
+      steps: [
+        { title: "Scrivi le tue date", text: "WhatsApp o Telegram: date + numero di ospiti. È tutto ciò che serve per iniziare." },
+        { title: "Ricevi prezzo e alloggio", text: "Confermiamo la disponibilità, suggeriamo l'appartamento o la casa migliore per il tuo gruppo e diamo il prezzo finale. Nessun costo nascosto." },
+        { title: "Arriva — ti accogliamo", text: "Ti accogliamo alla villa, ti mostriamo tutto e restiamo in contatto per tutto il soggiorno." },
+      ],
+      doubt: "Nessuna pressione di acconto: teniamo le tue date mentre decidi.",
+    },
+    faq: {
+      title: "Le domande delle famiglie",
+      items: [
+        { q: "È davvero più conveniente di Booking o Airbnb?", a: "Sì. Non paghi commissioni di piattaforma (di solito 10–18%). Il nostro prezzo è quello dei proprietari — e per soggiorni lunghi puoi sempre chiederci un'offerta migliore." },
+        { q: "Cosa è incluso nel prezzo?", a: "Biancheria, asciugamani, kit cucina (spezie, caffè, detersivo), parcheggio, piscina, barbecue, parco giochi e deposito. Tassa di soggiorno €1/persona/notte (apr–ott) all'arrivo." },
+        { q: "La villa è adatta ai bambini piccoli?", a: "Moltissimo. Parco giochi interno, lato piscina basso, spiagge senza onde a 50 m e il parco naturale per passeggiate facili. Culle su richiesta." },
+        { q: "Quanto dista davvero la spiaggia?", a: "50 metri — misurati. Esci dal cancello e vedi l'acqua. Due spiagge: una selvaggia e una attrezzata con bar." },
+        { q: "Possono venire due o tre famiglie insieme?", a: "È la nostra specialità. Prenota 2–4 appartamenti o case vicini — piscina e serate barbecue condivise, ma cucine e bagni separati." },
+        { q: "Come pago e posso disdire?", a: "Confermiamo tutto per iscritto nel messenger, comprese le condizioni di cancellazione per le tue date, prima di qualsiasi pagamento. Nessuna condizione nascosta." },
+      ],
+    },
+    final: {
+      title: "Le date estive sul Lago d'Idro vanno via per prime",
+      sub: "Scrivi oggi — ricevi disponibilità e prezzo esatto entro poche ore, senza impegno.",
+      cta: "Verifica le mie date su WhatsApp",
+      tg: "Oppure scrivi su Telegram",
+      doubt: "Condizioni di cancellazione confermate per iscritto · Nessuna commissione",
+    },
+    footer: {
+      addr: "Villa Idro · Vesta, Lago d'Idro, Lombardia, Italia",
+      cirTitle: "Registrazioni turistiche italiane (CIR)",
+      rights: "Villa Idro — villa privata di famiglia. Tutte le foto sono reali e scattate alla villa.",
+      direct: "Prenotazione diretta: WhatsApp · Telegram",
     },
   },
 };
