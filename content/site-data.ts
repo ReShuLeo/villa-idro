@@ -53,6 +53,9 @@ export const stays: Stay[] = [
 
 const e = (name: string) => p(`/photos/enhanced/${name}.jpg`);
 
+/** аэрофото с ВЖЖЁННЫМ указателем «вилла → 50 m → пляж» (для hero и секции локации) */
+export const heroAnnotated = e("villa-hero-annotated");
+
 export const gallery = {
   hero: e("villa-panorama-hero"),
   pool: [e("villa-pool-1"), e("villa-pool-2"), e("enh-villa-pool-3"), e("enh-villa-pool-4")],
