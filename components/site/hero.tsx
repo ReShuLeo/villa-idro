@@ -50,11 +50,14 @@ export function Hero({ lang }: { lang: Lang }) {
         role="img"
         aria-label="Villa Idro on Lake Idro — the villa circled, 50 metres to the beach"
       />
-      {/* затемнение под текстом сверху; здание/путь/пляж ниже — открыты */}
-      <div className="absolute inset-x-0 top-0 h-[34%] md:h-[52%] bg-gradient-to-b from-[#0d2227]/94 via-[#0d2227]/55 to-transparent" />
+      {/* верхнее затемнение — навигация + мобильный текст */}
+      <div className="absolute inset-x-0 top-0 h-[34%] md:h-[36%] bg-gradient-to-b from-[#0d2227]/94 via-[#0d2227]/50 to-transparent" />
+      {/* десктоп: затемняем правую половину (текст справа), левая с обводкой дома и путём остаётся светлой */}
+      <div className="hidden md:block absolute inset-y-0 right-0 w-[65%] bg-gradient-to-l from-[#0d2227]/90 via-[#0d2227]/45 to-transparent" />
 
       <div className="relative z-10 w-full max-w-6xl mx-auto px-5 md:px-8 pt-20 md:pt-24">
-        <div className="max-w-xl">
+        {/* моб: слева; десктоп: правая треть-половина (не перекрывает обведённый дом и маршрут слева) */}
+        <div className="max-w-xl md:ml-auto md:max-w-md lg:max-w-lg md:text-right">
           <p className="hero-sub text-[13px] md:text-sm tracking-[0.22em] uppercase text-[#e8c9a8] mb-3.5">
             {d.hero.eyebrow}
           </p>
