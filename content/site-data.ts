@@ -37,18 +37,20 @@ const enh = (id: string, order: number[]) =>
   order.map((i) => p(`/photos/enhanced/enh-${id}-${i}.jpg`));
 
 export const stays: Stay[] = [
+  // Первая карточка (Апартамент A) — обложка БАССЕЙН (крючок). Все остальные карточки
+  // (апартаменты B–H и все дома) начинаются с самой красивой СПАЛЬНИ; бассейн/кухня/санузел — дальше.
   { id: "ap-a", kind: "apartment", name: "A", sleeps: 5, size: 40, cir: "IT017082B4RR7F5FY4", balcony: false, photos: enh("ap-a", [0, 5, 1, 4, 2, 3, 6, 7]) },
-  { id: "ap-b", kind: "apartment", name: "B", sleeps: 4, size: 36, cir: "IT017082B4W885KLNP", balcony: true, photos: enh("ap-b", [0, 4, 3, 1, 2, 5]) },
-  { id: "ap-c", kind: "apartment", name: "C", sleeps: 4, size: 38, cir: "IT017082B4L7OOHQCW", balcony: true, photos: enh("ap-c", [0, 4, 1, 3, 2, 5]) },
-  { id: "ap-d", kind: "apartment", name: "D", sleeps: 4, size: 40, cir: "IT017082B4KAFC4UWN", balcony: true, photos: enh("ap-d", [0, 4, 1, 2, 3, 5]) },
-  { id: "ap-e", kind: "apartment", name: "E", sleeps: 5, size: 40, cir: "IT017082B4OZIUOF4X", balcony: true, photos: enh("ap-e", [0, 4, 3, 1, 2, 5]) },
-  { id: "ap-f", kind: "apartment", name: "F", sleeps: 4, size: 38, cir: "IT017082B4JR98TNTM", balcony: true, photos: enh("ap-f", [0, 5, 4, 2, 3, 6, 7, 1]) },
-  { id: "ap-g", kind: "apartment", name: "G", sleeps: 5, size: 40, cir: "IT017082B4HRPIXZ5H", balcony: true, photos: enh("ap-g", [0, 5, 2, 4, 3, 6, 7, 1]) },
-  { id: "ap-h", kind: "apartment", name: "H", sleeps: 5, size: 40, cir: "IT017082B4T52CHCUL", balcony: true, photos: enh("ap-h", [0, 5, 2, 3, 4, 6, 7, 1]) },
-  { id: "hm-a", kind: "home", name: "A", sleeps: 8, size: 80, cir: "017082-LIM-00003", balcony: true, photos: enh("hm-a", [0, 4, 3, 6, 7, 1, 2, 5]) },
-  { id: "hm-b", kind: "home", name: "B", sleeps: 8, size: 80, cir: "017082-LIM-00005", balcony: true, photos: enh("hm-b", [0, 4, 3, 5, 6, 7, 1, 2]) },
-  { id: "hm-c", kind: "home", name: "C", sleeps: 8, size: 80, cir: "017082-LNI-00001", balcony: true, photos: enh("hm-c", [0, 4, 3, 6, 7, 1, 2, 5]) },
-  { id: "hm-d", kind: "home", name: "D", sleeps: 8, size: 80, cir: "017082-CNI-00023", balcony: true, photos: enh("hm-d", [0, 4, 3, 5, 6, 7, 1, 2]) },
+  { id: "ap-b", kind: "apartment", name: "B", sleeps: 4, size: 36, cir: "IT017082B4W885KLNP", balcony: true, photos: enh("ap-b", [4, 3, 1, 0, 2, 5]) },
+  { id: "ap-c", kind: "apartment", name: "C", sleeps: 4, size: 38, cir: "IT017082B4L7OOHQCW", balcony: true, photos: enh("ap-c", [4, 1, 3, 0, 2, 5]) },
+  { id: "ap-d", kind: "apartment", name: "D", sleeps: 4, size: 40, cir: "IT017082B4KAFC4UWN", balcony: true, photos: enh("ap-d", [4, 1, 2, 0, 3, 5]) },
+  { id: "ap-e", kind: "apartment", name: "E", sleeps: 5, size: 40, cir: "IT017082B4OZIUOF4X", balcony: true, photos: enh("ap-e", [4, 3, 1, 0, 2, 5]) },
+  { id: "ap-f", kind: "apartment", name: "F", sleeps: 4, size: 38, cir: "IT017082B4JR98TNTM", balcony: true, photos: enh("ap-f", [5, 4, 2, 0, 3, 6, 7, 1]) },
+  { id: "ap-g", kind: "apartment", name: "G", sleeps: 5, size: 40, cir: "IT017082B4HRPIXZ5H", balcony: true, photos: enh("ap-g", [5, 2, 4, 0, 3, 6, 7, 1]) },
+  { id: "ap-h", kind: "apartment", name: "H", sleeps: 5, size: 40, cir: "IT017082B4T52CHCUL", balcony: true, photos: enh("ap-h", [5, 2, 3, 0, 4, 6, 7, 1]) },
+  { id: "hm-a", kind: "home", name: "A", sleeps: 8, size: 80, cir: "017082-LIM-00003", balcony: true, photos: enh("hm-a", [4, 6, 7, 3, 1, 0, 2, 5]) },
+  { id: "hm-b", kind: "home", name: "B", sleeps: 8, size: 80, cir: "017082-LIM-00005", balcony: true, photos: enh("hm-b", [4, 5, 6, 7, 3, 1, 0, 2]) },
+  { id: "hm-c", kind: "home", name: "C", sleeps: 8, size: 80, cir: "017082-LNI-00001", balcony: true, photos: enh("hm-c", [4, 6, 7, 3, 1, 0, 2, 5]) },
+  { id: "hm-d", kind: "home", name: "D", sleeps: 8, size: 80, cir: "017082-CNI-00023", balcony: true, photos: enh("hm-d", [4, 5, 6, 7, 3, 1, 0, 2]) },
 ];
 
 const e = (name: string) => p(`/photos/enhanced/${name}.jpg`);
