@@ -45,7 +45,7 @@ export function Hero({ lang }: { lang: Lang }) {
           Мобильный: показываем левую часть (вилла+пляж). Обведённое здание ниже короткого текста. */}
       <div
         className="hero-bg absolute inset-0 will-change-transform bg-cover bg-no-repeat
-                   [background-position:33%_50%] md:[background-position:52%_28%]"
+                   [background-position:33%_50%] md:[background-position:50%_82%]"
         style={{ backgroundImage: `url(${heroAnnotated})` }}
         role="img"
         aria-label="Villa Idro on Lake Idro — the villa circled, 50 metres to the beach"

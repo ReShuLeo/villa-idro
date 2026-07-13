@@ -47,10 +47,12 @@ export const stays: Stay[] = [
   { id: "ap-f", kind: "apartment", name: "F", sleeps: 4, size: 38, cir: "IT017082B4JR98TNTM", balcony: true, photos: enh("ap-f", [5, 4, 2, 0, 3, 6, 7, 1]) },
   { id: "ap-g", kind: "apartment", name: "G", sleeps: 5, size: 40, cir: "IT017082B4HRPIXZ5H", balcony: true, photos: enh("ap-g", [5, 2, 4, 0, 3, 6, 7, 1]) },
   { id: "ap-h", kind: "apartment", name: "H", sleeps: 5, size: 40, cir: "IT017082B4T52CHCUL", balcony: true, photos: enh("ap-h", [5, 2, 3, 0, 4, 6, 7, 1]) },
-  { id: "hm-a", kind: "home", name: "A", sleeps: 8, size: 80, cir: "017082-LIM-00003", balcony: true, photos: enh("hm-a", [4, 6, 7, 3, 1, 0, 2, 5]) },
-  { id: "hm-b", kind: "home", name: "B", sleeps: 8, size: 80, cir: "017082-LIM-00005", balcony: true, photos: enh("hm-b", [4, 5, 6, 7, 3, 1, 0, 2]) },
-  { id: "hm-c", kind: "home", name: "C", sleeps: 8, size: 80, cir: "017082-LNI-00001", balcony: true, photos: enh("hm-c", [4, 6, 7, 3, 1, 0, 2, 5]) },
-  { id: "hm-d", kind: "home", name: "D", sleeps: 8, size: 80, cir: "017082-CNI-00023", balcony: true, photos: enh("hm-d", [4, 5, 6, 7, 3, 1, 0, 2]) },
+  // ДОМА (владелец 13.07): обложка каждого дома — СВОЙ экстерьер (дом/бассейн, у всех разный: idx 0),
+  // дальше самые красивые/просторные спальни, затем гостиная/столовая/кухня/санузел.
+  { id: "hm-a", kind: "home", name: "A", sleeps: 8, size: 80, cir: "017082-LIM-00003", balcony: true, photos: enh("hm-a", [0, 4, 6, 7, 3, 1, 2, 5]) },
+  { id: "hm-b", kind: "home", name: "B", sleeps: 8, size: 80, cir: "017082-LIM-00005", balcony: true, photos: enh("hm-b", [0, 4, 5, 6, 7, 3, 1, 2]) },
+  { id: "hm-c", kind: "home", name: "C", sleeps: 8, size: 80, cir: "017082-LNI-00001", balcony: true, photos: enh("hm-c", [0, 4, 6, 7, 3, 1, 2, 5]) },
+  { id: "hm-d", kind: "home", name: "D", sleeps: 8, size: 80, cir: "017082-CNI-00023", balcony: true, photos: enh("hm-d", [0, 4, 5, 6, 7, 3, 1, 2]) },
 ];
 
 const e = (name: string) => p(`/photos/enhanced/${name}.jpg`);
